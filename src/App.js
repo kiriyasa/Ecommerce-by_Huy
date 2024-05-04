@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import { ProductsContextProvider } from './context/ProductsContext';
+import { CartContextProvider } from './context/CartContext';
+import { AuthContextProvider} from './context/AuthContext'
+import {BrowserRouter,Routes,Route} from 'react-router-dom'
+import Home from './pages/Home'
+import Login from '../src/pages/Login'
+import Register from '../src/pages/Register'
+import Shop from './pages/Shop'
+import Cart from './pages/Cart'
+import Cashout from './pages/Cashout'
+import Admin from './pages/Admin'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContextProvider>
+      <ProductsContextProvider>
+        <CartContextProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Home/>} />
+                <Route path="/login" element={<Login/>} />
+                <Route path="/register" element={<Register/>}/>
+                <Route path="/shop" element={<Shop/>}/>
+                <Route path="/shop/cart" element={<Cart/>}/>
+                <Route path="/cashout" element={<Cashout/>}/>
+                <Route path="/admin" element={<Admin/>}/>
+              </Routes>
+            </BrowserRouter>
+        </CartContextProvider>
+      </ProductsContextProvider>
+    </AuthContextProvider>
   );
 }
 
